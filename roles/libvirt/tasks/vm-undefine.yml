@@ -1,0 +1,9 @@
+- name: Destroy VM
+  community.libvirt.virt:
+    name: "{{ libvirt_vm_name }}"
+    state: destroyed
+
+- name: Undefine VM
+  community.libvirt.virt:
+    name: "{{ libvirt_vm_name }}"
+    command: undefine

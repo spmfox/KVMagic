@@ -1,0 +1,28 @@
+- name: Fetch VM information
+  community.libvirt.virt:
+    command: get_xml
+    name: "{{ libvirt_vm_name }}"
+  register: vm_info
+
+- name: Parse VM information
+  community.general.xml:
+    xmlstring: "{{ vm_info.get_xml }}"
+    xpath: "/domain/devices/disk/source"
+    content: attribute
+  register: vm_xml_output
+
+- name: Fail if expected disk is not found in VM XML
+  ansible.builtin.fail:
+    msg: "{{ libvirt_vm_destination }} was not found in VM disk definition {{ vm_xml_output.matches[0].source.file }}"
+  when: libvirt_vm_destination not in vm_xml_output.matches[0].source.file
+
+- name: Check filesystem for expected VM disk
+  ansible.builtin.stat:
+    path: "/{{ libvirt_vm_destination }}/{{ libvirt_vm_name }}.img"
+    get_checksum: false
+  register: vm_check_image_exists
+
+- name: Fail if expected VM disk is not found on destination filesystem
+  ansible.builtin.fail:
+    msg: "Expected VM disk /{{ libvirt_vm_destination }}/{{ libvirt_vm_name }}.img not found on filesystem."
+  when: not vm_check_image_exists.stat.exists

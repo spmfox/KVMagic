@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+
+  tasks:
+    - ansible.builtin.include_role:
+        name: zfs
+        tasks_from: dataset-check-duplicate.yml
+
+    - ansible.builtin.include_role:
+        name: libvirt
+        tasks_from: vm-check-duplicate.yml
+
+    - ansible.builtin.include_role:
+        name: zfs
+        tasks_from: dataset-create.yml
+
+    - ansible.builtin.include_role:
+        name: libvirt
+        tasks_from: vm-install.yml

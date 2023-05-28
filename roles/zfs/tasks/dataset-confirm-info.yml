@@ -1,0 +1,10 @@
+- name: Fetch ZFS dataset information
+  community.general.zfs_facts:
+    dataset: "{{ zfs_dataset }}"
+  register: dataset_facts
+
+- name: Fail if ZFS dataset contains child datasets
+  ansible.builtin.fail:
+    msg: "Dataset {{ zfs_dataset }} contains child datasets."
+  when: dataset_facts.ansible_facts.ansible_zfs_datasets[0].usedbychildren != "0B"
+

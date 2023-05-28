@@ -1,0 +1,11 @@
+- name: Check if ZFS dataset exists
+  community.general.zfs_facts:
+    dataset: "{{ zfs_dataset }}"
+  register: zfs_dataset_exists_check
+  ignore_errors: true
+
+- name: Fail if ZFS dataset already exists
+  ansible.builtin.fail:
+    msg: "Dataset {{ zfs_dataset }} is already in-use."
+  when: not zfs_dataset_exists_check.failed
+

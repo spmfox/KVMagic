@@ -1,0 +1,10 @@
+- name: Fetch list of all VMs
+  community.libvirt.virt:
+    command: list_vms
+  register: vms_list
+
+- name: Fail if VM exists
+  ansible.builtin.fail:
+    msg: "VM {{ libvirt_vm_name }} is already in-use."
+  when: libvirt_vm_name | string in vms_list.list_vms 
+

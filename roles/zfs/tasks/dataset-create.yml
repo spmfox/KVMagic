@@ -1,0 +1,4 @@
+- name: Create ZFS dataset
+  community.general.zfs:
+    name: "{{ zfs_dataset }}"
+    state: present

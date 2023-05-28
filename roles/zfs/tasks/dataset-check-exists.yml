@@ -1,0 +1,3 @@
+- name: Check if ZFS dataset exists
+  community.general.zfs_facts:
+    dataset: "{{ zfs_dataset }}"

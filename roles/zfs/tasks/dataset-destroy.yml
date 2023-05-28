@@ -1,0 +1,4 @@
+- name: Destroy ZFS dataset and all snapshots
+  community.general.zfs:
+    name: "{{ zfs_dataset }}"
+    state: absent

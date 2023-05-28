@@ -1,0 +1,10 @@
+- name: Fetch list of all VMs
+  community.libvirt.virt:
+    command: list_vms
+  register: vms_list
+
+- name: Fail if VM does not exist
+  ansible.builtin.fail:
+    msg: "VM {{ libvirt_vm_name }} does not exist."
+  when: libvirt_vm_name | string not in vms_list.list_vms 
+
