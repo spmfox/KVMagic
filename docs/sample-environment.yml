@@ -1,0 +1,24 @@
+all:
+  hosts:
+    test1:
+      vm_name: "test1"
+      os: "rhel8-unknown"
+      kickstart: "el8.ks"
+      iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
+    test2:
+      vm_name: "test2"
+      os: "rhel9-unknown"
+      kickstart: "el9.ks"
+      iso_path: "/path/to/isos/AlmaLinux-9.1-x86_64-dvd.iso"
+  vars:
+    memory_mb: 1024
+    cpus: 1
+    disk_gb: 20
+    disk_format: "raw"
+    os: "rhel-unknown"
+    timezone: "America/New_York"
+    hypervisor_host: "hypervisor.fqdn"
+    parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
+    network: "bridge:vm-bridge"
+    root_password: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
+    root_ssh_key: ""
