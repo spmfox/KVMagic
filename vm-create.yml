@@ -1,19 +1,28 @@
 - hosts: all
   become: true
+  gather_facts: false
 
   tasks:
     - ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-check-duplicate.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-check-duplicate.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-create.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-install.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"

@@ -1,27 +1,40 @@
 - hosts: all
   become: true
+  gather_facts: false
 
   tasks:
     - ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-check-exists.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-check-exists.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-confirm-info.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-confirm-info.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-undefine.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"
 
     - ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-destroy.yml
+        apply:
+          delegate_to: "{{ hypervisor_host }}"

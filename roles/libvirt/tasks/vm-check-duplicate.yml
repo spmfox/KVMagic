@@ -7,4 +7,3 @@
   ansible.builtin.fail:
     msg: "VM {{ libvirt_vm_name }} is already in-use."
   when: libvirt_vm_name | string in vms_list.list_vms 
-

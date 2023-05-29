@@ -8,4 +8,3 @@
   ansible.builtin.fail:
     msg: "Dataset {{ zfs_dataset }} is already in-use."
   when: not zfs_dataset_exists_check.failed
-

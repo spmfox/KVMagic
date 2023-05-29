@@ -1,7 +1,7 @@
 - name: Copy kickstart file to destination filesystem
   ansible.builtin.template:
     src: "kickstart/{{ libvirt_vm_kickstart_file }}"
-    dest: "/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }}" 
+    dest: "/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }}"
 
 - name: Create VM in destination filesystem
   ansible.builtin.command: 'virt-install --name {{ libvirt_vm_name }} --memory {{ libvirt_vm_memory }} --vcpus {{ libvirt_vm_vcpus }} --network {{ libvirt_vm_network }} --disk size={{ libvirt_vm_disk_size }},path=/{{ libvirt_vm_destination }}/{{ libvirt_vm_name }}.img,format={{ libvirt_vm_disk_format }} --location {{ libvirt_vm_iso_path }} --os-variant {{ libvirt_vm_os }} --initrd-inject=/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }} --extra-args="inst.ks=file:/{{ libvirt_vm_kickstart_file }}"'
