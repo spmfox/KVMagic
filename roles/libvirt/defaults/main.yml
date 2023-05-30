@@ -1,0 +1,4 @@
+# This variable is only needed for custom virt-install --location arguments, such as finding the kernel
+# Example usage would be libvirt_vm_location_arguments: ",kernel=/mnt/path/to/vmlinuz,initrd=/mnt/path/to/initrd.img"
+# ',' at the beginning is necessary, as this is attached to the virt-install --location /path/to/location command
+libvirt_vm_location_arguments: ""

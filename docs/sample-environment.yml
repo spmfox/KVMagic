@@ -1,21 +1,26 @@
 all:
   hosts:
-    test1:
-      vm_name: "test1"
+    test-el8:
+      vm_name: "test-el8"
       os: "rhel8-unknown"
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
-    test2:
-      vm_name: "test2"
+    test-el9:
+      vm_name: "test-el9"
       os: "rhel9-unknown"
       kickstart: "el9.ks"
       iso_path: "/path/to/isos/AlmaLinux-9.1-x86_64-dvd.iso"
+    test-f38:
+      vm_name: "test-f38"
+      os: "fedora-unknown"
+      kickstart: "f38.ks"
+      iso_path: "/path/to/isos/Fedora-Server-dvd-x86_64-38-1.6.iso"
+      libvirt_vm_location_arguments: ",kernel=images/pxeboot/vmlinuz,initrd=images/pxeboot/initrd.img" #https://bugzilla.redhat.com/show_bug.cgi?id=2144105
   vars:
     memory_mb: 1024
     cpus: 1
     disk_gb: 20
     disk_format: "raw"
-    os: "rhel-unknown"
     timezone: "America/New_York"
     hypervisor_host: "hypervisor.fqdn"
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
