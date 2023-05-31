@@ -21,8 +21,23 @@
         apply:
           delegate_to: "{{ hypervisor_host }}"
 
-    - ansible.builtin.include_role:
-        name: libvirt
-        tasks_from: vm-install.yml
-        apply:
-          delegate_to: "{{ hypervisor_host }}"
+    - block:
+        - ansible.builtin.include_role:
+            name: libvirt
+            tasks_from: vm-install.yml
+            apply:
+              delegate_to: "{{ hypervisor_host }}"
+
+      rescue:
+        - ansible.builtin.include_role:
+            name: zfs
+            tasks_from: dataset-confirm-info.yml
+            apply:
+              delegate_to: "{{ hypervisor_host }}"
+
+        - ansible.builtin.include_role:
+            name: zfs
+            tasks_from: dataset-destroy.yml
+            apply:
+              delegate_to: "{{ hypervisor_host }}"
+
