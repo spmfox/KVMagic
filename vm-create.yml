@@ -29,6 +29,9 @@
               delegate_to: "{{ hypervisor_host }}"
 
       rescue:
+        - ansible.builtin.debug:
+            msg: VM install failed, removing dataset
+
         - ansible.builtin.include_role:
             name: zfs
             tasks_from: dataset-confirm-info.yml
