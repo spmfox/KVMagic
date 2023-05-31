@@ -29,7 +29,7 @@ autopart
 clearpart --none --initlabel
 
 # System timezone
-timezone {{ libvirt_kickstart_timezone }} --isUtc
+timezone {{ libvirt_kickstart_timezone }} --utc
 
 # Root password
 rootpw --iscrypted {{ libvirt_kickstart_root_password | password_hash("sha512") }}
