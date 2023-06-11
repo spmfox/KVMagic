@@ -1,0 +1,6 @@
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+ansible_user: root
+
+guest_configure_user: "{{ user }}"
+guest_configure_packages: "{{ packages }}"
+guest_configure_services: "{{ services }}"

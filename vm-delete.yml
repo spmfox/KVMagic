@@ -3,38 +3,56 @@
   gather_facts: false
 
   tasks:
-    - ansible.builtin.include_role:
+    - name: Import zfs role to check if dataset exists
+      ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-check-exists.yml
         apply:
+          tags: zfs
           delegate_to: "{{ hypervisor_host }}"
+      tags: zfs
 
-    - ansible.builtin.include_role:
+    - name: Import libvirt role to check if VM exists
+      ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-check-exists.yml
         apply:
+          tags: libvirt
           delegate_to: "{{ hypervisor_host }}"
+      tags: libvirt
 
-    - ansible.builtin.include_role:
+    - name: Import libvirt role to confirm if VM has expected configuration
+      ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-confirm-info.yml
         apply:
+          tags: libvirt
           delegate_to: "{{ hypervisor_host }}"
+      tags: libvirt
 
-    - ansible.builtin.include_role:
+    - name: Import zfs role to confirm if the dataset has expected configuration
+      ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-confirm-info.yml
         apply:
+          tags: zfs
           delegate_to: "{{ hypervisor_host }}"
+      tags: zfs
 
-    - ansible.builtin.include_role:
+    - name: Import libvirt role to undefine VM
+      ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-undefine.yml
         apply:
+          tags: libvirt
           delegate_to: "{{ hypervisor_host }}"
+      tags: libvirt
 
-    - ansible.builtin.include_role:
+    - name: Import zfs role to destroy the dataset
+      ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-destroy.yml
         apply:
+          tags: zfs
           delegate_to: "{{ hypervisor_host }}"
+      tags: zfs

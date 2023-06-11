@@ -1,1 +1,1 @@
-zfs_dataset: "{{ parent_dataset }}/{{ vm_name }}"
+zfs_dataset: "{{ parent_dataset }}/{{ inventory_hostname }}"

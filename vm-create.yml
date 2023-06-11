@@ -3,44 +3,76 @@
   gather_facts: false
 
   tasks:
-    - ansible.builtin.include_role:
+    - name: Import zfs role for duplicate dataset check
+      ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-check-duplicate.yml
         apply:
+          tags: zfs
           delegate_to: "{{ hypervisor_host }}"
+      tags: zfs
 
-    - ansible.builtin.include_role:
+    - name: Import libvirt role for duplicate VM check
+      ansible.builtin.include_role:
         name: libvirt
         tasks_from: vm-check-duplicate.yml
         apply:
+          tags: libvirt
           delegate_to: "{{ hypervisor_host }}"
+      tags: libvirt
 
-    - ansible.builtin.include_role:
+    - name: Import zfs role for creating dataset
+      ansible.builtin.include_role:
         name: zfs
         tasks_from: dataset-create.yml
         apply:
+          tags: zfs
           delegate_to: "{{ hypervisor_host }}"
+      tags: zfs
 
-    - block:
-        - ansible.builtin.include_role:
+    - name: Block for VM creation and rescue for rolling back ZFS changes if creation fails
+      block:
+        - name: Import libvirt role for creating VM
+          ansible.builtin.include_role:
             name: libvirt
             tasks_from: vm-install.yml
             apply:
+              tags: libvirt
               delegate_to: "{{ hypervisor_host }}"
+          tags: libvirt
 
       rescue:
-        - ansible.builtin.debug:
+        - name: Print VM install failure message
+          ansible.builtin.debug:
             msg: VM install failed, removing dataset
+          tags: always
 
-        - ansible.builtin.include_role:
+        - name: Import zfs role for checking dataset before destroy
+          ansible.builtin.include_role:
             name: zfs
             tasks_from: dataset-confirm-info.yml
             apply:
+              tags: zfs
               delegate_to: "{{ hypervisor_host }}"
+          tags: zfs
 
-        - ansible.builtin.include_role:
+        - name: Import zfs role for destroying dataset
+          ansible.builtin.include_role:
             name: zfs
             tasks_from: dataset-destroy.yml
             apply:
+              tags: zfs
               delegate_to: "{{ hypervisor_host }}"
+          tags: zfs
 
+        - name: Fail host
+          ansible.builtin.fail:
+            msg: Host failed build process
+          tags: always
+
+    - name: Import guest-configure role
+      ansible.builtin.include_role:
+        name: guest-configure
+        apply:
+          tags: guest-configure
+      tags: guest-configure

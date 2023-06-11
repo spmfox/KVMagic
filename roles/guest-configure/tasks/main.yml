@@ -1,0 +1,17 @@
+- name: Wait for guest connectivity
+  ansible.builtin.wait_for_connection:
+
+- name: Gather facts
+  ansible.builtin.setup:
+
+- name: Import user creation task
+  ansible.builtin.import_tasks: user.yml
+
+- name: Import update task
+  ansible.builtin.import_tasks: update.yml
+
+- name: Import packages task
+  ansible.builtin.import_tasks: packages.yml
+
+- name: Import services task
+  ansible.builtin.import_tasks: services.yml

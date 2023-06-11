@@ -1,0 +1,52 @@
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ guest_configure_user }}"
+
+- name: RedHat block
+  block:
+    - name: Add user to sudo group (RedHat)
+      ansible.builtin.user:
+        name: "{{ guest_configure_user }}"
+        groups: "wheel"
+        append: yes
+
+    - name: Allow wheel group nopasswd in sudoers (RedHat)
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+  when: ansible_os_family == "RedHat"
+
+- name: Debian block
+  block:
+    - name: Add user to sudo group (Debian)
+      ansible.builtin.user:
+        name: "{{ guest_configure_user }}"
+        groups: "sudo"
+        append: yes
+
+    - name: Allow sudo group nopasswd in sudoers (Debian)
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+  when: ansible_os_family == "Debian"
+
+- name: Create user .ssh folder
+  ansible.builtin.file:
+    path: "/home/{{ guest_configure_user }}/.ssh/"
+    state: directory
+    mode: "0700"
+    owner: "{{ guest_configure_user }}"
+
+- name: Copy root ssh authorized_keys key to new user
+  ansible.builtin.copy:
+    src: "/root/.ssh/authorized_keys"
+    dest: "/home/{{ guest_configure_user }}/.ssh/authorized_keys"
+    remote_src: yes
+    mode: "0600"
+    owner: "{{ guest_configure_user }}"

@@ -26,5 +26,12 @@ all:
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
     network: "bridge:vm-bridge"
     root_password: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}" #Random root password
-    root_ssh_key: |
+    user: "admin" #Regular user with sudo rights
+    # SSH key for root and regular user
+    ssh_key: |
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDFyY+3A07lMnHkyQ6bMez/BEi9j2vh4sotxQdqEMlCS+EJCta8G/CCj54kBvFKrrkiPMs0Jj1Od02ZjWZqGf+W/stZ+KLh97M0EM/69zbRbQJZ7xuCQKng7U87bbopbXcx9Mu9DUCC1pjNJ5Bb7nG6z51hk7mh3mF8QGHJ6qp03FrK+Eiud/2d9Zbn4lNH/E5W7iZ3J7zZHU16nLQH1Tsbx2LFUDkVhz/A4/7sqRmWT/mpwSCVgxN9cFgs1KMHsqb4Z1XXtbb//SWj+bmPvcfbfDUkTnb8Z+KTOd1OViKjDH1owgymxZtDML5S7OOZ2AX0/c5JaDplLRhji7gpVTRLZJE5XHvfVqwJCkxVrxoc4sbcZb9I/G+clJ3CBzSMZXh7p85J4OLVP5GmfOh0o93pakWVsTZBrPgO3EjhOyj0pGay3qUHiQfPqIlU+q92Mku5iijsbFDv28HdUlz5e69igg7E8Hr2/SruZuDijxOqkkHkmW0pnM8kXQpvU5dvW0U= pubkey@box
+    packages: # Packages to install on guest
+      - qemu-guest-agent
+    services: # Services to enable on guest
+      - qemu-guest-agent
+

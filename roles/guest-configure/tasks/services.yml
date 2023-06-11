@@ -1,0 +1,6 @@
+- name: Enable and start services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop: "{{ guest_configure_services }}"
