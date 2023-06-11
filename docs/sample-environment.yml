@@ -1,17 +1,14 @@
 all:
   hosts:
     test-el8:
-      vm_name: "test-el8"
       os: "rhel8-unknown"
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
     test-el9:
-      vm_name: "test-el9"
       os: "rhel9-unknown"
       kickstart: "el9.ks"
       iso_path: "/path/to/isos/AlmaLinux-9.1-x86_64-dvd.iso"
     test-f38:
-      vm_name: "test-f38"
       os: "fedora-unknown"
       kickstart: "f38.ks"
       iso_path: "/path/to/isos/Fedora-Server-dvd-x86_64-38-1.6.iso"

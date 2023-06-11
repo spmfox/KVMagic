@@ -15,7 +15,6 @@ The goal is a consistently deployed lab which can be defined with YAML for its c
 all:
   hosts:
     test-el8:
-      vm_name: "test-el8"
       os: "rhel8-unknown"
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
