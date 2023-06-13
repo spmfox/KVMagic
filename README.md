@@ -1,5 +1,5 @@
 # KVMagic
-Ansible roles and playbooks for provisioning Kickstart installed VMs on KVM+ZFS hosts.
+Ansible roles and playbooks for provisioning VMs on KVM+ZFS hosts.
 
 ![KVMagic](docs/images/logo.png)
 
