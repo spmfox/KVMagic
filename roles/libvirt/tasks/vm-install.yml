@@ -1,12 +1,19 @@
-- name: Copy kickstart file to destination filesystem
+- name: Copy kickstart file to destination filesystem (if defined)
   ansible.builtin.template:
     src: "kickstart/{{ libvirt_vm_kickstart_file }}"
     dest: "/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }}"
+  when: libvirt_vm_kickstart_file|length > 0
 
-- name: Create VM in destination filesystem
+- name: Create VM from kickstart in destination filesystem
   ansible.builtin.command: 'virt-install --name {{ libvirt_vm_name }} --memory {{ libvirt_vm_memory }} --vcpus {{ libvirt_vm_vcpus }} --network {{ libvirt_vm_network }} --disk size={{ libvirt_vm_disk_size }},path=/{{ libvirt_vm_destination }}/{{ libvirt_vm_name }}.img,format={{ libvirt_vm_disk_format }} --location {{ libvirt_vm_location_path }}{{ libvirt_vm_location_arguments }} --os-variant {{ libvirt_vm_os }} --initrd-inject=/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }} --extra-args="inst.ks=file:/{{ libvirt_vm_kickstart_file }}"'
+  when: libvirt_vm_kickstart_file|length > 0
 
-- name: Remove kickstart file from destination filesystem
+- name: Create VM without kickstart in destination filesystem
+  ansible.builtin.command: 'virt-install --name {{ libvirt_vm_name }} --memory {{ libvirt_vm_memory }} --vcpus {{ libvirt_vm_vcpus }} --network {{ libvirt_vm_network }} --disk size={{ libvirt_vm_disk_size }},path=/{{ libvirt_vm_destination }}/{{ libvirt_vm_name }}.img,format={{ libvirt_vm_disk_format }} --location {{ libvirt_vm_location_path }}{{ libvirt_vm_location_arguments }} --os-variant {{ libvirt_vm_os }}'
+  when: libvirt_vm_kickstart_file|length == 0
+
+- name: Remove kickstart file from destination filesystem (if defined)
   ansible.builtin.file:
     path: "/{{ libvirt_vm_destination }}/{{ libvirt_vm_kickstart_file }}"
     state: absent
+  when: libvirt_vm_kickstart_file|length > 0

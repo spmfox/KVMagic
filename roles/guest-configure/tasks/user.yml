@@ -2,6 +2,13 @@
   ansible.builtin.user:
     name: "{{ guest_configure_user }}"
 
+- name: Add user SSH key (if defined)
+  ansible.posix.authorized_key:
+    user: "{{ guest_configure_user }}"
+    state: present
+    key: "{{ guest_configure_ssh_key }}"
+  when: guest_configure_ssh_key|length > 0
+
 - name: RedHat block
   block:
     - name: Add user to sudo group (RedHat)
@@ -35,18 +42,3 @@
         line: '%sudo ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
   when: ansible_os_family == "Debian"
-
-- name: Create user .ssh folder
-  ansible.builtin.file:
-    path: "/home/{{ guest_configure_user }}/.ssh/"
-    state: directory
-    mode: "0700"
-    owner: "{{ guest_configure_user }}"
-
-- name: Copy root ssh authorized_keys key to new user
-  ansible.builtin.copy:
-    src: "/root/.ssh/authorized_keys"
-    dest: "/home/{{ guest_configure_user }}/.ssh/authorized_keys"
-    remote_src: yes
-    mode: "0600"
-    owner: "{{ guest_configure_user }}"

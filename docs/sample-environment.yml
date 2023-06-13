@@ -1,7 +1,7 @@
 all:
   hosts:
     test-el8:
-      os: "rhel8-unknown"
+      os: "rhel8-unknown" #A full list of OSes can be found with this #virt-install --osinfo list
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
     test-el9:
@@ -22,7 +22,7 @@ all:
     hypervisor_host: "hypervisor.fqdn"
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
     network: "bridge:vm-bridge"
-    root_password: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}" #Random root password
+#   root_password: "" #Not defining this will cause a random root password to be generated
     user: "admin" #Regular user with sudo rights
     # SSH key for root and regular user
     ssh_key: |
