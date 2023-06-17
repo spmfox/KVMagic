@@ -16,35 +16,35 @@
   when: guest_configure_ssh_key|length > 0
 
 - name: RedHat block
+  when: ansible_os_family == "RedHat"
   block:
     - name: Add user to sudo group (RedHat)
       ansible.builtin.user:
         name: "{{ guest_configure_user }}"
         groups: "wheel"
-        append: yes
+        append: true
 
     - name: Allow wheel group nopasswd in sudoers (RedHat)
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/sudoers
         state: present
         regexp: '^%wheel'
         line: '%wheel ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
-  when: ansible_os_family == "RedHat"
 
 - name: Debian block
+  when: ansible_os_family == "Debian"
   block:
     - name: Add user to sudo group (Debian)
       ansible.builtin.user:
         name: "{{ guest_configure_user }}"
         groups: "sudo"
-        append: yes
+        append: true
 
     - name: Allow sudo group nopasswd in sudoers (Debian)
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/sudoers
         state: present
         regexp: '^%sudo'
         line: '%sudo ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
-  when: ansible_os_family == "Debian"

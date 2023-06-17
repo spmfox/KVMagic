@@ -7,4 +7,3 @@
   ansible.builtin.fail:
     msg: "VM {{ libvirt_vm_name }} does not exist."
   when: libvirt_vm_name | string not in vms_list.list_vms
-

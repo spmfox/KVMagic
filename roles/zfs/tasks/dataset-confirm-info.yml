@@ -7,4 +7,3 @@
   ansible.builtin.fail:
     msg: "Dataset {{ zfs_dataset }} contains child datasets."
   when: dataset_facts.ansible_facts.ansible_zfs_datasets[0].usedbychildren != "0B"
-
