@@ -5,6 +5,7 @@ Ansible roles and playbooks for provisioning VMs on KVM+ZFS hosts.
 
 This is a quick and declarative way to provision Kickstart installed KVM virtual machines on ZFS datasets then tear them down and destroy the datasets.
 The goal is a consistently deployed lab which can be defined with YAML for its creation and deletion.
+Kickstart is optional, however automated installation is only supported via Kickstart.
 
 ## Usage
 - ```ansible-playbook -i inventories/your-inventory.yml vm-create.yml```
@@ -42,6 +43,9 @@ This example has no automated install and no guest configuration. An example wit
   - community.libvirt.virt module has upstream code to do this, but it has not been released yet
   - Workaround is to manually delete snapshots from VM before deletion
   - Does NOT apply to ZFS snapshots
+- Favors RHEL based distros, working on plumbing for Debian based
+  - Automated installs for Debian do not work
+  - Some guest configuration options for Debian are not coded
 
 ## Architecture
 The KVM and ZFS tasks are split into different roles, ```libvirt``` and ```zfs```. These roles contain all the needed tasks and variables for each feature.
