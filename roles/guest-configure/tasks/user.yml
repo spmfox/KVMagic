@@ -2,6 +2,12 @@
   ansible.builtin.user:
     name: "{{ guest_configure_user }}"
 
+- name: Set user shell (if defined)
+  ansible.builtin.user:
+    name: "{{ guest_configure_user }}"
+    shell: "{{ guest_configure_user_shell }}"
+  when: guest_configure_user_shell|length > 0
+
 - name: Add user SSH key (if defined)
   ansible.posix.authorized_key:
     user: "{{ guest_configure_user }}"

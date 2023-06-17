@@ -1,0 +1,13 @@
+- name: RedHat block
+  block:
+    - name: Install dnf-automatic (RedHat)
+      ansible.builtin.package:
+        name: dnf-automatic
+        state: present
+
+    - name: Enable dnf-automatic systemd service (RedHat)
+      ansible.builtin.service:
+        name:  dnf-automatic-install.timer
+        enabled: yes
+        state: started
+  when: ansible_os_family == "RedHat"

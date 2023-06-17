@@ -1,5 +1,11 @@
-- name: Install packages
+- name: Install prerequisite packages (if defined)
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: "{{ guest_configure_packages_preq }}"
     state: present
-  loop: "{{ guest_configure_packages }}"
+  when: guest_configure_packages_preq | length > 0
+
+- name: Install packages (if defined)
+  ansible.builtin.package:
+    name: "{{ guest_configure_packages }}"
+    state: present
+  when: guest_configure_packages | length > 0

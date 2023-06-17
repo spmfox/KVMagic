@@ -1,9 +1,15 @@
+# Vars can be set per-host, or globally under the vars: section
 all:
   hosts:
     test-el8:
       os: "rhel8-unknown" #A full list of OSes can be found with this #virt-install --osinfo list
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
+      pre_packages: #Install these packages before regular ones
+        - epel-release
+      packages:
+        - fish
+      shell: "/usr/bin/fish" #Set shell for user
     test-el9:
       os: "rhel9-unknown"
       kickstart: "el9.ks"
@@ -13,6 +19,9 @@ all:
       kickstart: "f38.ks"
       iso_path: "/path/to/isos/Fedora-Server-dvd-x86_64-38-1.6.iso"
       libvirt_vm_location_arguments: ",kernel=images/pxeboot/vmlinuz,initrd=images/pxeboot/initrd.img" #https://bugzilla.redhat.com/show_bug.cgi?id=2144105
+      packages:
+        - fish
+      shell: "/usr/bin/fish"
   vars:
     memory_mb: 1024
     cpus: 1

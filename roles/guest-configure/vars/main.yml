@@ -2,6 +2,8 @@ ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev
 ansible_user: root
 
 guest_configure_user: "{{ user if user is defined }}"
+guest_configure_user_shell: "{{ shell if shell is defined }}"
 guest_configure_ssh_key: "{{ ssh_key if ssh_key is defined }}"
+guest_configure_packages_preq: "{{ pre_packages if pre_packages is defined }}"
 guest_configure_packages: "{{ packages if packages is defined }}"
 guest_configure_services: "{{ services if services is defined }}"
