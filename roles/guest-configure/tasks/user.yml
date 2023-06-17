@@ -6,14 +6,14 @@
   ansible.builtin.user:
     name: "{{ guest_configure_user }}"
     shell: "{{ guest_configure_user_shell }}"
-  when: guest_configure_user_shell|length > 0
+  when: guest_configure_user_shell | length > 0
 
 - name: Add user SSH key (if defined)
   ansible.posix.authorized_key:
     user: "{{ guest_configure_user }}"
     state: present
     key: "{{ guest_configure_ssh_key }}"
-  when: guest_configure_ssh_key|length > 0
+  when: guest_configure_ssh_key | length > 0
 
 - name: RedHat block
   when: ansible_os_family == "RedHat"

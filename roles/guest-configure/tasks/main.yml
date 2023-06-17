@@ -9,16 +9,16 @@
 
 - name: Import packages task
   ansible.builtin.import_tasks: packages.yml
-  when: (guest_configure_packages|length > 0) or (guest_configure_packages_preq|length > 0)
+  when: (guest_configure_packages | length > 0) or (guest_configure_packages_preq | length > 0)
 
 - name: Import user creation task
   ansible.builtin.import_tasks: user.yml
-  when: guest_configure_user|length > 0
+  when: guest_configure_user | length > 0
 
 - name: Import services task
   ansible.builtin.import_tasks: services.yml
-  when: guest_configure_services|length > 0
+  when: guest_configure_services | length > 0
 
 - name: Import automatic-update task
   ansible.builtin.import_tasks: automatic-update.yml
-  when: guest_configure_services|length > 0
+  when: guest_configure_services | length > 0
