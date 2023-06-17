@@ -3,4 +3,4 @@
     name: "{{ item }}"
     enabled: true
     state: started
-  loop: "{{ guest_configure_services }}"
+  loop: "{{ guest_configure_services if guest_configure_services is iterable and guest_configure_services is not string else [] }}"
