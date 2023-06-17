@@ -8,6 +8,7 @@ all:
       pre_packages: #Install these packages before regular ones
         - epel-release
       packages:
+        - qemu-guest-agent
         - fish
       shell: "/usr/bin/fish" #Set shell for user
     test-el9:
@@ -20,6 +21,7 @@ all:
       iso_path: "/path/to/isos/Fedora-Server-dvd-x86_64-38-1.6.iso"
       libvirt_vm_location_arguments: ",kernel=images/pxeboot/vmlinuz,initrd=images/pxeboot/initrd.img" #https://bugzilla.redhat.com/show_bug.cgi?id=2144105
       packages:
+        - qemu-guest-agent
         - fish
       shell: "/usr/bin/fish"
   vars:
