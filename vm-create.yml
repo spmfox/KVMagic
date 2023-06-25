@@ -70,7 +70,7 @@
             msg: Host failed build process
           tags: always
 
-    - name: Import guest-configure role
+    - name: Import guest-configure role for configuring VM
       ansible.builtin.include_role:
         name: guest-configure
         apply:

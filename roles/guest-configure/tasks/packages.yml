@@ -1,8 +1,17 @@
-- name: Install prerequisite packages (if defined)
-  ansible.builtin.package:
-    name: "{{ guest_configure_packages_preq }}"
-    state: present
-  when: guest_configure_packages_preq | length > 0
+- name: Block for installing prerequisite packages
+  block:
+    - name: Install prerequisite packages (if defined)
+      ansible.builtin.package:
+        name: "{{ guest_configure_packages_preq }}"
+        state: present
+      when: guest_configure_packages_preq | length > 0
+  rescue:
+    - name: Rescue - Install prerequisite packages skipping GPG check (RedHat)
+      ansible.builtin.dnf:
+        name: "{{ guest_configure_packages_preq }}"
+        state: present
+        disable_gpg_check: true
+      when: ansible_os_family == "RedHat"
 
 - name: Install packages (if defined)
   ansible.builtin.package:

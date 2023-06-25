@@ -1,7 +1,7 @@
 # Vars can be set per-host, or globally under the vars: section
 all:
   hosts:
-    test-el8:
+    test-alma8:
       os: "rhel8-unknown" #A full list of OSes can be found with this #virt-install --osinfo list
       kickstart: "el8.ks"
       iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
@@ -11,10 +11,12 @@ all:
         - qemu-guest-agent
         - fish
       shell: "/usr/bin/fish" #Set shell for user
-    test-el9:
+    test-rhel9:
       os: "rhel9-unknown"
       kickstart: "el9.ks"
-      iso_path: "/path/to/isos/AlmaLinux-9.1-x86_64-dvd.iso"
+      iso_path: "/path/to/isos/rhel-9.2-x86_64-dvd.iso"
+      redhat_user: "rhsm_username" #Used for registering to Red Hat and un-registering when deleting VM
+      redhat_password: "rhsm_password"
     test-f38:
       os: "fedora-unknown"
       kickstart: "f38.ks"

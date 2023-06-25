@@ -39,6 +39,14 @@
           delegate_to: "{{ hypervisor_host }}"
       tags: zfs
 
+    - name: Import guest-configure role for undo
+      ansible.builtin.include_role:
+        name: guest-configure
+        tasks_from: undo.yml
+        apply:
+          tags: guest-configure
+      tags: guest-configure
+
     - name: Import libvirt role to undefine VM
       ansible.builtin.include_role:
         name: libvirt

@@ -1,0 +1,3 @@
+- name: Import Red Hat Subscription Manager unregister task
+  ansible.builtin.import_tasks: rhsm-unregister.yml
+  when: (guest_configure_rhsm_username | length > 0) and (guest_configure_rhsm_password | length > 0)
