@@ -1,11 +1,11 @@
-- name: Register system with Red Hat Subscription Manager (without Activation Key)
+- name: Register guest with Red Hat Subscription Manager (without Activation Key)
   community.general.redhat_subscription:
     username: "{{ guest_configure_rhsm_username }}"
     password: "{{ guest_configure_rhsm_password }}"
     state: present
   when: guest_configure_rhsm_activation_key | length == 0
 
-- name: Register system with Red Hat Subscription Manager (with Activation Key)
+- name: Register guest with Red Hat Subscription Manager (with Activation Key)
   community.general.redhat_subscription:
     username: "{{ guest_configure_rhsm_username }}"
     password: "{{ guest_configure_rhsm_password }}"
