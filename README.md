@@ -16,7 +16,7 @@ Kickstart is optional, however automated installation is only supported via Kick
 all:
   hosts:
     test-el8:
-      iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
+      iso_path: "/path/to/ios/CentOS-Stream-8-20230612.0-x86_64-dvd1.iso"
   vars:
     hypervisor_host: "hypervisor.fqdn"
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"

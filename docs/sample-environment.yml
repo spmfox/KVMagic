@@ -1,10 +1,10 @@
 # Vars can be set per-host, or globally under the vars: section
 all:
   hosts:
-    test-alma8:
+    test-stream8:
       os: "rhel8-unknown" #A full list of OSes can be found with this #virt-install --osinfo list
       kickstart: "el8.ks"
-      iso_path: "/path/to/ios/AlmaLinux-8.7-x86_64-dvd.iso"
+      iso_path: "/path/to/ios/CentOS-Stream-8-20230612.0-x86_64-dvd1.iso"
       pre_packages: #Install these packages before regular ones
         - epel-release
       packages:
