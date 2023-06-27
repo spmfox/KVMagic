@@ -125,4 +125,4 @@ all:
 ```
 
 
-For examples of more variable usage, check the ```sample-environmet.yml```.
+For examples of more variable usage, check the ```sample-environment.yml```.
