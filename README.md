@@ -11,17 +11,8 @@ Kickstart is optional, however automated installation is only supported via Kick
 - ```ansible-playbook -i inventories/your-inventory.yml vm-create.yml```
 - ```ansible-playbook -i inventories/your-inventory.yml vm-delete.yml```
 
-## Absolute minimum environment file
-```yaml
-all:
-  hosts:
-    test-el8:
-      iso_path: "/path/to/ios/CentOS-Stream-8-20230612.0-x86_64-dvd1.iso"
-  vars:
-    hypervisor_host: "hypervisor.fqdn"
-    parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
-```
-This example has no automated install and no guest configuration. An example with multiple VMs and full options is located in the ```docs``` directory.
+## Inventory File
+An example with multiple VMs and full options is located in the ```docs``` directory.
 
 ## Requirements
 - Ansible
