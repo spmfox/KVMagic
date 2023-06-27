@@ -41,10 +41,10 @@ cat <<EOF >/root/.ssh/authorized_keys
 {{ libvirt_kickstart_root_ssh_key }}
 EOF
 
-### set permissions
 chmod 0600 /root/.ssh/authorized_keys
 
-### fix up selinux context
 restorecon -R /root/.ssh/
+
+{{ libvirt_kickstart_allow_root_ssh }}
 
 %end
