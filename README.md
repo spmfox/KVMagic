@@ -40,9 +40,6 @@ An example with multiple VMs and full options is located in the ```docs``` direc
   - Some guest configuration options for Debian are not coded
 
 ## Architecture
-The KVM and ZFS tasks are split into different roles, ```libvirt``` and ```zfs```. These roles contain all the needed tasks and variables for each feature.
-Variables for libvirt tasks start with ```libvirt_``` and zfs ones start with ```zfs_```. These are the "real" variables that are used in the tasks,
-but they are mapped to "friendly: variables for easier use. This mapping can be found in the ```vars/main.yml``` file for each role.
-
-This is meant for maximum portability and easier readability. Someone could easily take just the tasks from the role or create their own plays at the
-upper level that run the role tasks in a different order or multiple new ways.
+There are three roles: ```zfs```, ```libvirt```, and ```guest-configure```. Functionality is isolated between these and they do not depend on each other.
+These roles and their containing tasks could be used on their own or in another project. Each role has "real" variables that are populated by the "friendly"
+variables used in the inventory. This allows for portability and remixing new ways to use this project.
