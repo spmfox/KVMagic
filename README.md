@@ -27,7 +27,8 @@ This example has no automated install and no guest configuration. An example wit
 - Ansible
 - Ansible collections
   - ```ansible-galaxy install -r collections/requirements.yml```
-- KVM
+- libvirtd
+- virt-installer
 - ZFS
 
 ## Assumptions
