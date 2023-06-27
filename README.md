@@ -11,6 +11,12 @@ Kickstart is optional, however automated installation is only supported via Kick
 - ```ansible-playbook -i inventories/your-inventory.yml vm-create.yml```
 - ```ansible-playbook -i inventories/your-inventory.yml vm-delete.yml```
 
+## Features
+- Declare environment using Ansible inventory file
+- Create and destroy ZFS datasets that contain VM images automatically
+- Create and destroy VMs automatically
+- Configure guest VM after creation, including register (and un-register) with Red Hat Subscription manager
+
 ## Inventory File
 An example with multiple VMs and full options is located in the ```docs``` directory.
 
