@@ -1,6 +1,7 @@
 libvirt_vm_name: "{{ inventory_hostname }}"
 libvirt_vm_memory: "{{ memory_mb if memory_mb is defined else '1024' }}"
 libvirt_vm_vcpus: "{{ cpus if cpus is defined else '1' }}"
+libvirt_vm_cpu: "{{ cpu_type if cpu_type is defined else 'host-passthrough' }}"
 libvirt_vm_disk_size: "{{ disk_gb if disk_gb is defined else '20' }}"
 libvirt_vm_disk_format: "{{ disk_format if disk_format is defined else 'qcow2' }}"
 libvirt_vm_os: "{{ os if os is defined else 'rhel8-unknown' }}"
