@@ -22,6 +22,7 @@ An example with multiple VMs and full options is located in the ```docs``` direc
 
 ## Requirements
 - Ansible
+- sshpass
 - Ansible collections
   - ```ansible-galaxy install -r collections/requirements.yml```
 - libvirtd
