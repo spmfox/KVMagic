@@ -1,5 +1,12 @@
-- name: Wait for guest connectivity
-  ansible.builtin.wait_for_connection:
+- name: Block for confirming connectivity
+  block:
+    - name: Wait for guest connectivity
+      ansible.builtin.wait_for_connection:
+        timeout: 90
+
+  rescue:
+    - name: Show reason for connectivity error
+      ansible.builtin.ping:
 
 - name: Gather facts
   ansible.builtin.setup:
