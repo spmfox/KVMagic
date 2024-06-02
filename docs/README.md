@@ -4,29 +4,30 @@
 
 Below is a table describing each variable, and which Ansible role the variable is used in.
 
-| Variable              | zfs | libvirt | guest-configure | Default             | Required | Description |
-| :------:              | :-: | :-----: |:--------------: | :----------------:  | :------: | -----------
-| "host"                |  X  |    X    |       X         |                     |     X    | Hostname for the VM to be created, name for the child dataset to be created, and used to connect and configure the guest |
-| ```os```              |     |    X    |                 | ```rhel8-unknown``` |          | Libvirt needs this to determine what hardware to use, list of all options can be found with ```#virt-install --osinfo list``` on your hypervisor |
-| ```kickstart```       |     |    X    |                 |                     |          | Kickstart file for the new VM, files are located in roles/libvirt/templates/kickstart, not defining this will result in a manual install |
-| ```iso_path```        |     |    X    |                 |                     |     X    | Path on hypervisor to ISO for virt-installer to use |
-| ```cpus```            |     |    X    |                 | ```1```             |          | Amount of CPU's for the new VM |
-| ```memory_mb```       |     |    X    |                 | ```1024```          |          | Amount of RAM (in MB) for the new VM |
-| ```disk_gb```         |     |    X    |                 | ```20```            |          | Amount of disk (in GB) for the new VM |
-| ```disk_format```     |     |    X    |                 | ```qcow2```         |          | Image format for disk on new VM, recommended to use ```raw``` on ZFS (with compression) or ```qcow2``` otherwise |
-| ```network```         |     |    X    |                 | ```default```       |          | Name of the network device (usually a bridge) on the hypervisor to attach to new VM, not defining this will use the ```default``` device |
-| ```parent_dataset```  |  X  |    X    |                 |                     |     X    | Parent ZFS dataset, child dataset for the VM will be created here - virt-install will also use this path for the new VM's installation |
-| ```timezone```        |     |    X    |                 | ```Etc/GMT```       |          | Sets the timezone in Kickstart, does nothing for non-Kickstart installs |
-| ```hypervisor_host``` |  X  |    X    |                 |                     |     X    | This is the host, either FQDN - IP - or "localhost", where ZFS and libvirt is running |
-| ```pre_packages```    |     |         |       X         |                     |          | **List** of packages to be installed **first**, before the rest of the packages, on the new VM |
-| ```packages```        |     |         |       X         |                     |          | **List** of packages to be installed on the new VM |
-| ```user```            |     |         |       X         |                     |          | User to be created on the new VM |
-| ```root_password```   |     |    X    |       X         | Kickstart - Random  |          | Sets root password in Kickstart (uses random if not specified), can be used to communicate with new VM if no SSH key is defined |
-| ```ssh_key```         |     |    X    |                 |                     |          | This key is put into the Kickstart template for the root user and the regular user (if defined) - if not defined, PermitRootLogin is used in Kickstart |
-| ```shell```           |     |         |       X         |                     |          | Set new user's shell to this shell, does not change the root user shell - does nothing if no regular user defined |
-| ```services```        |     |         |       X         |                     |          | Services to enable on the new VM
-| ```redhat_user```     |     |         |       X         |                     |          | Username to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
-| ```redhat_password``` |     |         |       X         |                     |          | Password to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
+| Variable                   | zfs | libvirt | guest-configure | Default             | Required | Description |
+| :------:                   | :-: | :-----: |:--------------: | :----------------:  | :------: | -----------
+| "host"                     |  X  |    X    |       X         |                     |     X    | Hostname for the VM to be created, name for the child dataset to be created, and used to connect and configure the guest |
+| ```os```                   |     |    X    |                 | ```rhel8-unknown``` |          | Libvirt needs this to determine what hardware to use, list of all options can be found with ```#virt-install --osinfo list``` on your hypervisor |
+| ```kickstart```            |     |    X    |                 |                     |          | Kickstart file for the new VM, files are located in roles/libvirt/templates/kickstart, not defining this will result in a manual install |
+| ```iso_path```             |     |    X    |                 |                     |     X    | Path on hypervisor to ISO for virt-installer to use |
+| ```cpus```                 |     |    X    |                 | ```1```             |          | Amount of CPU's for the new VM |
+| ```memory_mb```            |     |    X    |                 | ```1024```          |          | Amount of RAM (in MB) for the new VM |
+| ```disk_gb```              |     |    X    |                 | ```20```            |          | Amount of disk (in GB) for the new VM |
+| ```disk_format```          |     |    X    |                 | ```qcow2```         |          | Image format for disk on new VM, recommended to use ```raw``` on ZFS (with compression) or ```qcow2``` otherwise |
+| ```network```              |     |    X    |                 | ```default```       |          | Name of the network device (usually a bridge) on the hypervisor to attach to new VM, not defining this will use the ```default``` device |
+| ```parent_dataset```       |  X  |    X    |                 |                     |     X    | Parent ZFS dataset, child dataset for the VM will be created here - virt-install will also use this path for the new VM's installation |
+| ```parent_dataset_mount``` |     |    X    |                 |                     |          | Mountpoint for the parent ZFS dataset - this is used only for virt-install |
+| ```timezone```             |     |    X    |                 | ```Etc/GMT```       |          | Sets the timezone in Kickstart, does nothing for non-Kickstart installs |
+| ```hypervisor_host```      |  X  |    X    |                 |                     |     X    | This is the host, either FQDN - IP - or "localhost", where ZFS and libvirt is running |
+| ```pre_packages```         |     |         |       X         |                     |          | **List** of packages to be installed **first**, before the rest of the packages, on the new VM |
+| ```packages```             |     |         |       X         |                     |          | **List** of packages to be installed on the new VM |
+| ```user```                 |     |         |       X         |                     |          | User to be created on the new VM |
+| ```root_password```        |     |    X    |       X         | Kickstart - Random  |          | Sets root password in Kickstart (uses random if not specified), can be used to communicate with new VM if no SSH key is defined |
+| ```ssh_key```              |     |    X    |                 |                     |          | This key is put into the Kickstart template for the root user and the regular user (if defined) - if not defined, PermitRootLogin is used in Kickstart |
+| ```shell```                |     |         |       X         |                     |          | Set new user's shell to this shell, does not change the root user shell - does nothing if no regular user defined |
+| ```services```             |     |         |       X         |                     |          | Services to enable on the new VM
+| ```redhat_user```          |     |         |       X         |                     |          | Username to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
+| ```redhat_password```      |     |         |       X         |                     |          | Password to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
 | ```libvirt_vm_location_arguments``` | | X | | | | This is a temporary workaround for Fedora ISOs, the path to the Kernel is missing from the ISO and can be defined here if necessary |
 
 ## Inventory
@@ -97,6 +98,7 @@ all:
 ```yaml
 # Two RHEL VMs, use SSH key for root, register VM with Red Hat,
 # install EPEL, create user, use SSH key for user, install and use fish shell for user
+# using a non-standard mountpoint for the ZFS parent dataset
 all:
   hosts:
     test-rhel8:
@@ -114,6 +116,7 @@ all:
   vars:
     hypervisor_host: "hypervisor-hostname.fqdn"
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
+    parent_dataset_mount: "/mnt/zfs-parent-dataset/zfs-child-dataset"
     user: "myuser"
     shell: "/usr/bin/fish"
     ssh_key: |

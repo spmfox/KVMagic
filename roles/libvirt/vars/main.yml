@@ -7,7 +7,7 @@ libvirt_vm_disk_format: "{{ disk_format if disk_format is defined else 'qcow2' }
 libvirt_vm_os: "{{ os if os is defined else 'rhel8-unknown' }}"
 libvirt_vm_kickstart_file: "{{ kickstart if kickstart is defined }}"
 libvirt_vm_location_path: "{{ iso_path }}"
-libvirt_vm_destination: "{{ parent_dataset }}/{{ inventory_hostname }}"
+libvirt_vm_destination: "{{ parent_dataset_mount if parent_dataset_mount is defined else parent_dataset }}/{{ inventory_hostname }}"
 libvirt_vm_network: "{{ network if network is defined else 'default' }}"
 libvirt_kickstart_hostname: "{{ inventory_hostname }}"
 libvirt_kickstart_timezone: "{{ timezone if timezone is defined else 'Etc/GMT' }}"
