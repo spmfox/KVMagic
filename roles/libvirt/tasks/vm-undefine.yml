@@ -7,3 +7,4 @@
   community.libvirt.virt:
     name: "{{ libvirt_vm_name }}"
     command: undefine
+    force: true
