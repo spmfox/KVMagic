@@ -26,8 +26,10 @@ Below is a table describing each variable, and which Ansible role the variable i
 | ```ssh_key```              |     |    X    |                 |                     |          | This key is put into the Kickstart template for the root user and the regular user (if defined) - if not defined, PermitRootLogin is used in Kickstart |
 | ```shell```                |     |         |       X         |                     |          | Set new user's shell to this shell, does not change the root user shell - does nothing if no regular user defined |
 | ```services```             |     |         |       X         |                     |          | Services to enable on the new VM
-| ```redhat_user```          |     |         |       X         |                     |          | Username to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
-| ```redhat_password```      |     |         |       X         |                     |          | Password to register new VM with Red Hat Subscription Manager, will also be used to un-register on VM deletion |
+| ```redhat_user```          |     |         |       X         |                     |          | Username to register/unregister new VM with Red Hat Subscription Manager |
+| ```redhat_password```      |     |         |       X         |                     |          | Password to register/unregister new VM with Red Hat Subscription Manager |
+| `redhat_activation_key`    |     |         |       X         |                     |          | Activation key for RHSM |
+| `redhat_org_id`            |     |         |       X         |                     |          | Org ID for RHSM |
 | ```libvirt_vm_location_arguments``` | | X | | | | This is a temporary workaround for Fedora ISOs, the path to the Kernel is missing from the ISO and can be defined here if necessary |
 
 ## Inventory

@@ -13,7 +13,8 @@
 
 - name: Import Red Hat Subscription Manager task
   ansible.builtin.import_tasks: rhsm-register.yml
-  when: (guest_configure_rhsm_username | length > 0) and (guest_configure_rhsm_password | length > 0)
+  when: ((guest_configure_rhsm_username | length > 0) and (guest_configure_rhsm_password | length > 0)) or
+        ((guest_configure_rhsm_org_id | length > 0) and (guest_configure_rhsm_activation_key | length > 0))
 
 - name: Import update task
   ansible.builtin.import_tasks: update.yml

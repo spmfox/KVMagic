@@ -1,14 +1,17 @@
-- name: Register guest with Red Hat Subscription Manager (without Activation Key)
+- name: Register guest with Red Hat Subscription Manager (username/password)
   community.general.redhat_subscription:
     username: "{{ guest_configure_rhsm_username }}"
     password: "{{ guest_configure_rhsm_password }}"
     state: present
-  when: guest_configure_rhsm_activation_key | length == 0
+  when:
+    - (guest_configure_rhsm_username | length > 0) and (guest_configure_rhsm_password | length > 0)
+    - (guest_configure_rhsm_activation_key | length == 0) and (guest_configure_rhsm_org_id | length == 0)
 
-- name: Register guest with Red Hat Subscription Manager (with Activation Key)
+- name: Register guest with Red Hat Subscription Manager (org_id/activation_key)
   community.general.redhat_subscription:
-    username: "{{ guest_configure_rhsm_username }}"
-    password: "{{ guest_configure_rhsm_password }}"
+    org_id: "{{ guest_configure_rhsm_org_id }}"
     activationkey: "{{ guest_configure_rhsm_activation_key }}"
     state: present
-  when: guest_configure_rhsm_activation_key | length > 0
+  when:
+    - (guest_configure_rhsm_username | length == 0) and (guest_configure_rhsm_password | length == 0)
+    - (guest_configure_rhsm_activation_key | length > 0) and (guest_configure_rhsm_org_id | length > 0)
