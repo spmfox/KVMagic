@@ -23,7 +23,7 @@ Below is a table describing each variable, and which Ansible role the variable i
 | ```packages```             |     |         |       X         |                     |          | **List** of packages to be installed on the new VM |
 | ```user```                 |     |         |       X         |                     |          | User to be created on the new VM |
 | ```root_password```        |     |    X    |       X         | Kickstart - Random  |          | Sets root password in Kickstart (uses random if not specified), can be used to communicate with new VM if no SSH key is defined |
-| ```ssh_key```              |     |    X    |                 |                     |          | This key is put into the Kickstart template for the root user and the regular user (if defined) - if not defined, PermitRootLogin is used in Kickstart |
+| ```ssh_keys```              |     |    X    |                 |                     |          | List of keys to be put into the Kickstart template for the root user and the regular user (if defined) - if not defined, PermitRootLogin is used in Kickstart |
 | ```shell```                |     |         |       X         |                     |          | Set new user's shell to this shell, does not change the root user shell - does nothing if no regular user defined |
 | ```services```             |     |         |       X         |                     |          | Services to enable on the new VM
 | ```redhat_user```          |     |         |       X         |                     |          | Username to register/unregister new VM with Red Hat Subscription Manager |
@@ -89,8 +89,9 @@ all:
     parent_dataset: "zfs-parent-dataset/zfs-child-dataset"
     user: "myuser"
     shell: "/usr/bin/fish"
-    ssh_key: |
-       ssh-rsa <key here>
+    ssh_keys:
+      - ssh-rsa <key1>
+      - ssh-rsa <key2>
     pre-packages:
       - epel-release
     packages:
@@ -121,8 +122,9 @@ all:
     parent_dataset_mount: "/mnt/zfs-parent-dataset/zfs-child-dataset"
     user: "myuser"
     shell: "/usr/bin/fish"
-    ssh_key: |
-      ssh-rsa <key here>
+    ssh_keys:
+      - ssh-rsa <key1>
+      - ssh-rsa <key2>
     packages:
       - fish
     redhat_user: "myrhsmuser"

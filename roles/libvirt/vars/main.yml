@@ -11,6 +11,6 @@ libvirt_vm_destination: "{{ parent_dataset_mount if parent_dataset_mount is defi
 libvirt_vm_network: "{{ network if network is defined else 'default' }}"
 libvirt_kickstart_hostname: "{{ inventory_hostname }}"
 libvirt_kickstart_timezone: "{{ timezone if timezone is defined else 'Etc/GMT' }}"
-libvirt_kickstart_root_ssh_key: "{{ ssh_key if ssh_key is defined }}"
+libvirt_kickstart_root_ssh_keys: "{{ ssh_keys if ssh_keys is defined }}"
 libvirt_kickstart_root_password: "{{ root_password if root_password is defined else lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
-libvirt_kickstart_allow_root_ssh: "{{ '' if ssh_key is defined else 'echo PermitRootLogin yes > /etc/ssh/sshd_config.d/01-permitrootlogin.conf' }}"
+libvirt_kickstart_allow_root_ssh: "{{ '' if ssh_keys is defined else 'echo PermitRootLogin yes > /etc/ssh/sshd_config.d/01-permitrootlogin.conf' }}"

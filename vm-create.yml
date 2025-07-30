@@ -76,4 +76,4 @@
         apply:
           tags: guest-configure
       tags: guest-configure
-      when: (ssh_key is defined and ssh_key | length > 0) or (root_password is defined and root_password | length > 0) 
+      when: (ssh_keys is defined and ssh_keys | length > 0) or (root_password is defined and root_password | length > 0) 

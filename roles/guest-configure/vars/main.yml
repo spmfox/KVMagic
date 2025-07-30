@@ -4,7 +4,7 @@ ansible_ssh_password: "{{ root_password if root_password is defined }}"
 
 guest_configure_user: "{{ user if user is defined }}"
 guest_configure_user_shell: "{{ shell if shell is defined }}"
-guest_configure_ssh_key: "{{ ssh_key if ssh_key is defined }}"
+guest_configure_ssh_keys: "{{ ssh_keys if ssh_keys is defined }}"
 guest_configure_packages_preq: "{{ pre_packages if pre_packages is defined }}"
 guest_configure_packages: "{{ packages if packages is defined }}"
 guest_configure_services: "{{ services if services is defined }}"

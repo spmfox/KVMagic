@@ -12,8 +12,9 @@
   ansible.posix.authorized_key:
     user: "{{ guest_configure_user }}"
     state: present
-    key: "{{ guest_configure_ssh_key }}"
-  when: guest_configure_ssh_key | length > 0
+    key: "{{ item }}"
+  loop: "{{ guest_configure_ssh_keys }}"
+  when: guest_configure_ssh_keys | length > 0
 
 - name: RedHat block
   when: ansible_os_family == "RedHat"

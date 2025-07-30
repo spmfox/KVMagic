@@ -38,7 +38,9 @@ rootpw --iscrypted {{ libvirt_kickstart_root_password | password_hash("sha512") 
 mkdir -m0700 /root/.ssh/
 
 cat <<EOF >/root/.ssh/authorized_keys
-{{ libvirt_kickstart_root_ssh_key }}
+{% for ssh_key in libvirt_kickstart_root_ssh_keys %}
+{{ ssh_key }}
+{% endfor %}
 EOF
 
 chmod 0600 /root/.ssh/authorized_keys
