@@ -31,6 +31,7 @@ Below is a table describing each variable, and which Ansible role the variable i
 | `redhat_activation_key`    |     |         |       X         |                     |          | Activation key for RHSM |
 | `redhat_org_id`            |     |         |       X         |                     |          | Org ID for RHSM |
 | ```libvirt_vm_location_arguments``` | | X | | | | This is a temporary workaround for Fedora ISOs, the path to the Kernel is missing from the ISO and can be defined here if necessary |
+| `fips`                     |     |    X    |                 | `false`             |          | This passes fips=1 to `libvirt` while creating the VM, only works with kickstart |
 
 ## Inventory
 Ansible provides a flexible way to define your environment: [How to build your inventory](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html).
