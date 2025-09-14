@@ -26,9 +26,13 @@ cdrom
 firstboot --enable
 
 ignoredisk --only-use=vda
-autopart
-# Partition clearing information
-clearpart --none --initlabel
+clearpart --all --initlabel
+
+part /boot --fstype="xfs" --size=1024
+part pv.01 --grow --size=1
+volgroup root_vg pv.01
+logvol / --fstype="xfs" --name=root --vgname=root_vg --grow --size=1
+logvol swap --fstype="swap" --name=swap --vgname=root_vg --size=3072
 
 # System timezone
 timezone {{ libvirt_kickstart_timezone }} --isUtc
