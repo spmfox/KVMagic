@@ -25,6 +25,7 @@ firstboot --enable
 ignoredisk --only-use=vda
 clearpart --all --initlabel
 
+part biosboot --fstype="biosboot" --size=1
 part /boot --fstype="xfs" --size=1024
 part pv.01 --grow --size=1
 volgroup root_vg pv.01
