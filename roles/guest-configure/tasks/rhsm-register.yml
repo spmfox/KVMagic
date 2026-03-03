@@ -6,6 +6,7 @@
   when:
     - (guest_configure_rhsm_username | length > 0) and (guest_configure_rhsm_password | length > 0)
     - (guest_configure_rhsm_activation_key | length == 0) and (guest_configure_rhsm_org_id | length == 0)
+    - ansible_facts['distribution'] == "RedHat"
 
 - name: Register guest with Red Hat Subscription Manager (org_id/activation_key)
   community.general.redhat_subscription:
@@ -15,3 +16,4 @@
   when:
     - (guest_configure_rhsm_username | length == 0) and (guest_configure_rhsm_password | length == 0)
     - (guest_configure_rhsm_activation_key | length > 0) and (guest_configure_rhsm_org_id | length > 0)
+    - ansible_facts['distribution'] == "RedHat"

@@ -25,7 +25,7 @@ firstboot --enable
 ignoredisk --only-use=vda
 clearpart --all --initlabel
 
-part biosboot --fstype="biosboot" --size=1
+part /boot/efi --fstype="efi" --size=600
 part /boot --fstype="xfs" --size=1024
 part pv.01 --grow --size=1
 volgroup root_vg pv.01
@@ -37,6 +37,8 @@ timezone {{ libvirt_kickstart_timezone }} --utc
 
 # Root password
 rootpw --iscrypted {{ libvirt_kickstart_root_password | password_hash("sha512") }}
+
+bootloader --append="console=tty0 console=ttyS0,115200n8"
 
 %post
 mkdir -m0700 /root/.ssh/
@@ -50,6 +52,8 @@ EOF
 chmod 0600 /root/.ssh/authorized_keys
 
 restorecon -R /root/.ssh/
+
+systemctl enable --now serial-getty@ttyS0.service
 
 {{ libvirt_kickstart_allow_root_ssh }}
 
