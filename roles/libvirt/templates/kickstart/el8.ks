@@ -6,6 +6,9 @@ repo --name="AppStream" --baseurl=file:///run/install/sources/mount-0000-cdrom/A
 
 %packages
 @^server-product-environment
+# Installing a newer version of Python for Ansible
+# Use ansible_python_interpreter: /usr/bin/python3.9
+python39
 kexec-tools
 
 %end
