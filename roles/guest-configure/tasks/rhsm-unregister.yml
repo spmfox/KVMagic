@@ -3,4 +3,4 @@
     state: absent
   ignore_errors: true
   when:
-    - (guest_configure_rhsm_username | length > 0) or (guest_configure_rhsm_org_id | length > 0)
+    - (guest_configure_rhsm_username | length > 0) or (guest_configure_rhsm_org_id | length > 0) or (guest_configure_rhsm_satellite | length > 0)
