@@ -1,8 +1,6 @@
 # KVMagic
 Ansible roles and playbooks for provisioning VMs on KVM+ZFS hosts.
 
-![KVMagic](docs/images/logo.png)
-
 This is a quick and declarative way to provision Kickstart installed KVM virtual machines on ZFS datasets then tear them down and destroy the datasets.
 The goal is a consistently deployed lab which can be defined with YAML for its creation and deletion.
 Kickstart is optional, however automated installation is only supported via Kickstart.
