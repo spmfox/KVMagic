@@ -12,6 +12,8 @@ cdrom
 
 %packages
 @^server-product-environment
+# Packages needed for Ansible
+python3-libdnf5
 
 %end
 

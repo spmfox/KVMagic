@@ -6,8 +6,30 @@
         name: dnf-automatic
         state: present
 
-    - name: Enable dnf-automatic systemd service (RedHat)
-      ansible.builtin.service:
-        name: dnf-automatic-install.timer
-        enabled: true
-        state: started
+    - name: Block for dnf5
+      block:
+        - name: Enable & start dnf-automatic systemd service (RedHat)
+          ansible.builtin.service:
+            name: dnf-automatic-install.timer
+            enabled: true
+            state: started
+
+      rescue:
+        - name: Attempt to install dnf5-plugin-automatic instead
+          ansible.builtin.package:
+            name: dnf5-plugin-automatic
+            state: present
+
+        - name: Configure dnf5-plugin-automatic
+          ansible.builtin.blockinfile:
+            path: /etc/dnf/automatic.conf
+            create: true
+            block: |
+              [commands]
+              apply_updates = yes
+
+        - name: Enable & start dnf5-automatic.timer
+          ansible.builtin.service:
+            name: dnf5-automatic.timer
+            enabled: true
+            state: started
